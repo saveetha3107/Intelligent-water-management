@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment - WaterGuard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">💧</div>
+            <div>
+                <h2>WaterGuard</h2>
+                <span>Smart Monitoring</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <p class="menu-title">MAIN MENU</p>
+
+            <a href="dashboard.html" class="menu-item"><span>📊</span>Dashboard</a>
+            <a href="monitoring.html" class="menu-item"><span>💧</span>Water Monitoring</a>
+            <a href="equipment.html" class="menu-item active"><span>⚙️</span>Equipment</a>
+            <a href="alerts.html" class="menu-item">
+                <span>🚨</span>Smart Alerts<span class="badge">3</span>
+            </a>
+
+            <p class="menu-title">ANALYTICS</p>
+
+            <a href="analytics.html" class="menu-item"><span>📈</span>Analytics</a>
+            <a href="history.html" class="menu-item"><span>📅</span>History</a>
+            <a href="reports.html" class="menu-item"><span>📄</span>Reports</a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-status">
+                <span class="online-dot"></span>
+                <div>
+                    <strong>System Online</strong>
+                    <small>All services active</small>
+                </div>
+            </div>
+            <button class="logout" onclick="logout()">↪ Logout</button>
+        </div>
+
+    </div>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <p class="page-label">EQUIPMENT</p>
+                <h1>Equipment Monitoring</h1>
+                <p class="welcome-text">
+                    Monitor the health and operating status of plant equipment.
+                </p>
+            </div>
+
+            <div class="profile">
+
+                
+
+                <div class="notification-wrapper">
+
+                    <div class="notification" onclick="toggleNotifications(event)">
+                        🔔
+                        <span class="notification-dot"></span>
+                    </div>
+
+                    <div class="notification-dropdown" id="notificationDropdown">
+
+                        <div class="notification-header">
+                            <strong>Notifications</strong>
+                            <span class="notification-count">3 new</span>
+                        </div>
+
+                        <div class="notification-list">
+
+                            <div class="notification-item">
+                                <div class="notif-icon warning">⚠️</div>
+                                <div>
+                                    <strong>Pressure variation detected</strong>
+                                    <small>Current pressure: 4.2 bar · 10 min ago</small>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <div class="notif-icon warning">⚠️</div>
+                                <div>
+                                    <strong>High turbidity detected</strong>
+                                    <small>Current turbidity: 4.8 NTU · 25 min ago</small>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <div class="notif-icon warning">⚠️</div>
+                                <div>
+                                    <strong>pH approaching upper threshold</strong>
+                                    <small>Current pH: 8.2 · 35 min ago</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <a href="alerts.html" class="notification-footer">
+                            View all alerts →
+                        </a>
+
+                    </div>
+
+                </div>
+
+                
+
+                <div class="profile-info">
+                    <div class="avatar">A</div>
+                    <div>
+                        <strong>Admin</strong>
+                        <small>Plant Operator</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="overview-cards">
+
+            <div class="metric-card">
+                <div class="metric-icon ph-icon">⚙️</div>
+                <div class="metric-content">
+                    <p>TOTAL EQUIPMENT</p>
+                    <h2>4</h2>
+                    <span class="good">● Registered</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon flow-icon">🟢</div>
+                <div class="metric-content">
+                    <p>RUNNING</p>
+                    <h2>3</h2>
+                    <span class="good">● Operational</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon turbidity-icon">🔧</div>
+                <div class="metric-content">
+                    <p>MAINTENANCE</p>
+                    <h2>0</h2>
+                    <span class="good">● No Issues</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon pressure-icon">❤️</div>
+                <div class="metric-content">
+                    <p>AVERAGE HEALTH</p>
+                    <h2>94%</h2>
+                    <span class="good">● Healthy</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Equipment Overview</h2>
+                    <p>Current operating condition of plant equipment</p>
+                </div>
+            </div>
+
+            <div class="equipment-list">
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">⚙️</div>
+                        <div>
+                            <strong>Pump 1</strong>
+                            <small>Main circulation pump · 1450 RPM</small>
+                        </div>
+                    </div>
+                    <span class="status-running">● Running</span>
+                </div>
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">⚙️</div>
+                        <div>
+                            <strong>Pump 2</strong>
+                            <small>Secondary pump · 1420 RPM</small>
+                        </div>
+                    </div>
+                    <span class="status-running">● Running</span>
+                </div>
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">🔧</div>
+                        <div>
+                            <strong>Valve 1</strong>
+                            <small>Control valve · Position 85%</small>
+                        </div>
+                    </div>
+                    <span class="status-running">● Open</span>
+                </div>
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">⚡</div>
+                        <div>
+                            <strong>Motor 1</strong>
+                            <small>Filtration motor · 42°C</small>
+                        </div>
+                    </div>
+                    <span class="status-running">● Running</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="panel quality-panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Equipment Health</h2>
+                    <p>Overall equipment condition</p>
+                </div>
+            </div>
+
+            <div class="score-circle" id="scoreCircle">
+                <div>
+                    <strong id="healthScore">94</strong>
+                    <span>/100</span>
+                </div>
+            </div>
+
+            <div class="quality-status" id="healthStatus">
+                ● HEALTHY
+            </div>
+
+            <div class="quality-details">
+                <div><span>Pumps</span><strong>✓</strong></div>
+                <div><span>Valve</span><strong>✓</strong></div>
+                <div><span>Motor</span><strong>✓</strong></div>
+                <div><span>System</span><strong>✓</strong></div>
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Equipment Health Details</h2>
+                    <p>Operational parameters and maintenance status</p>
+                </div>
+            </div>
+
+            <div class="equipment-list">
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">⚙️</div>
+                        <div>
+                            <strong>Pump 1</strong>
+                            <small>Temperature: 38°C · Speed: 1450 RPM</small>
+                        </div>
+                    </div>
+                    <span class="status-running">Healthy</span>
+                </div>
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">⚙️</div>
+                        <div>
+                            <strong>Pump 2</strong>
+                            <small>Temperature: 36°C · Speed: 1420 RPM</small>
+                        </div>
+                    </div>
+                    <span class="status-running">Healthy</span>
+                </div>
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">🔧</div>
+                        <div>
+                            <strong>Valve 1</strong>
+                            <small>Position: 85% · Response: Normal</small>
+                        </div>
+                    </div>
+                    <span class="status-running">Healthy</span>
+                </div>
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">⚡</div>
+                        <div>
+                            <strong>Motor 1</strong>
+                            <small>Temperature: 42°C · Load: 68%</small>
+                        </div>
+                    </div>
+                    <span class="status-running">Healthy</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="alert-item success">
+                <div class="alert-icon">✓</div>
+                <div>
+                    <strong>All equipment is operating normally</strong>
+                    <small>No maintenance or equipment failure alerts detected.</small>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "index.html";
+        }
+
+        function setHealthScore(score) {
+
+            const scoreEl = document.getElementById("healthScore");
+            const circle  = document.getElementById("scoreCircle");
+            const status  = document.getElementById("healthStatus");
+
+            if (!scoreEl || !circle || !status) return;
+
+            scoreEl.textContent = score;
+
+            const degrees = (score / 100) * 360;
+
+            let color = "#079b64";
+            if (score < 80) color = "#e69a23";
+            if (score < 60) color = "#e45555";
+
+            circle.style.background = `
+                radial-gradient(circle, #ffffff 60%, transparent 61%),
+                conic-gradient(
+                    ${color} 0deg ${degrees}deg,
+                    #e5edf1 ${degrees}deg 360deg
+                )
+            `;
+
+            if (score >= 80) {
+                status.textContent = "● HEALTHY";
+                status.style.color = "#079b64";
+            } else if (score >= 60) {
+                status.textContent = "● NEEDS ATTENTION";
+                status.style.color = "#e69a23";
+            } else {
+                status.textContent = "● CRITICAL";
+                status.style.color = "#e45555";
+            }
+
+        }
+
+        setHealthScore(94);
+
+        
+
+        function toggleNotifications(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById("notificationDropdown");
+            if (dropdown) dropdown.classList.toggle("open");
+        }
+
+        document.addEventListener("click", function(event) {
+            const dropdown = document.getElementById("notificationDropdown");
+            const wrapper  = document.querySelector(".notification-wrapper");
+            if (dropdown && wrapper && !wrapper.contains(event.target)) {
+                dropdown.classList.remove("open");
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                const dropdown = document.getElementById("notificationDropdown");
+                if (dropdown) dropdown.classList.remove("open");
+            }
+        });
+
+    </script>
+
+</body>
+</html>

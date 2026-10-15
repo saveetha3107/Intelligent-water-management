@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - WaterGuard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">💧</div>
+
+            <div>
+                <h2>WaterGuard</h2>
+                <span>Smart Monitoring</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <p class="menu-title">MAIN MENU</p>
+
+            <a href="dashboard.html" class="menu-item active">
+                <span>📊</span>
+                Dashboard
+            </a>
+
+            <a href="monitoring.html" class="menu-item">
+                <span>💧</span>
+                Water Monitoring
+            </a>
+
+            <a href="equipment.html" class="menu-item">
+                <span>⚙️</span>
+                Equipment
+            </a>
+
+            <a href="alerts.html" class="menu-item">
+                <span>🚨</span>
+                Smart Alerts
+                <span class="badge">3</span>
+            </a>
+
+            <p class="menu-title">ANALYTICS</p>
+
+            <a href="analytics.html" class="menu-item">
+                <span>📈</span>
+                Analytics
+            </a>
+
+            <a href="#" class="menu-item">
+                <span>📅</span>
+                <span>History</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <span>📄</span>
+                <span>Reports</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="system-status">
+                <span class="online-dot"></span>
+
+                <div>
+                    <strong>System Online</strong>
+                    <small>All services active</small>
+                </div>
+            </div>
+
+            <button class="logout" onclick="logout()">
+                ↪ Logout
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <p class="page-label">OVERVIEW</p>
+                <h1>Water Treatment Dashboard</h1>
+                <p class="welcome-text">
+                    Real-time monitoring of water quality and plant performance.
+                </p>
+            </div>
+
+            <div class="profile">
+
+                <div class="notification-wrapper">
+
+                    <div class="notification" onclick="toggleNotifications(event)">
+                        🔔
+                        <span class="notification-dot"></span>
+                    </div>
+
+                    <div class="notification-dropdown" id="notificationDropdown">
+
+                        <div class="notification-header">
+                            <strong>Notifications</strong>
+                            <span class="notification-count">3 new</span>
+                        </div>
+
+                        <div class="notification-list">
+
+                            <div class="notification-item">
+                                <div class="notif-icon warning">⚠️</div>
+                                <div>
+                                    <strong>Pressure variation detected</strong>
+                                    <small>Current pressure: 4.2 bar · 10 min ago</small>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <div class="notif-icon warning">⚠️</div>
+                                <div>
+                                    <strong>High turbidity detected</strong>
+                                    <small>Current turbidity: 4.8 NTU · 25 min ago</small>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <div class="notif-icon warning">⚠️</div>
+                                <div>
+                                    <strong>pH approaching upper threshold</strong>
+                                    <small>Current pH: 8.2 · 35 min ago</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <a href="alerts.html" class="notification-footer">
+                            View all alerts →
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="profile-info">
+
+                    <div class="avatar" id="userAvatar">
+                        A
+                    </div>
+
+                    <div>
+                        <strong id="userName">Admin</strong>
+                        <small>Plant Operator</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="overview-cards">
+
+            <div class="metric-card">
+
+                <div class="metric-icon ph-icon">
+                    🧪
+                </div>
+
+                <div class="metric-content">
+
+                    <p>pH LEVEL</p>
+
+                    <h2 id="phValue">--</h2>
+
+                    <span class="good" id="phStatus">
+                        ● Normal
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-icon turbidity-icon">
+                    💧
+                </div>
+
+                <div class="metric-content">
+
+                    <p>TURBIDITY</p>
+
+                    <h2>
+                        <span id="turbidityValue">--</span>
+                        <small>NTU</small>
+                    </h2>
+
+                    <span class="good" id="turbidityStatus">
+                        ● Normal
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-icon flow-icon">
+                    🌊
+                </div>
+
+                <div class="metric-content">
+
+                    <p>FLOW RATE</p>
+
+                    <h2>
+                        <span id="flowValue">--</span>
+                        <small>L/min</small>
+                    </h2>
+
+                    <span class="good">
+                        ● Stable
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-icon pressure-icon">
+                    ⚙️
+                </div>
+
+                <div class="metric-content">
+
+                    <p>PRESSURE</p>
+
+                    <h2>
+                        <span id="pressureValue">--</span>
+                        <small>bar</small>
+                    </h2>
+
+                    <span class="good" id="pressureStatus">
+                        ● Normal
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Water Quality Trend</h2>
+                    <p>Recent pH monitoring data</p>
+                </div>
+
+                <select id="trendPeriod">
+                    <option>Last 24 Hours</option>
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                </select>
+
+            </div>
+
+            <div class="trend-chart">
+
+                <div class="trend-y-axis">
+                    <span>9.0</span>
+                    <span>8.0</span>
+                    <span>7.0</span>
+                    <span>6.0</span>
+                    <span>5.0</span>
+                </div>
+
+                <div class="trend-plot">
+
+                    <div class="trend-grid-line"></div>
+                    <div class="trend-grid-line"></div>
+                    <div class="trend-grid-line"></div>
+                    <div class="trend-grid-line"></div>
+
+                    <svg viewBox="0 0 700 220" preserveAspectRatio="none" class="trend-svg">
+
+                        <polyline
+                            points="20,150 130,135 240,145 350,120 460,135 570,110 680,120"
+                            fill="none"
+                            stroke="#087f8c"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round">
+                        </polyline>
+
+                        <circle cx="20"  cy="150" r="5" fill="#087f8c"></circle>
+                        <circle cx="130" cy="135" r="5" fill="#087f8c"></circle>
+                        <circle cx="240" cy="145" r="5" fill="#087f8c"></circle>
+                        <circle cx="350" cy="120" r="5" fill="#087f8c"></circle>
+                        <circle cx="460" cy="135" r="5" fill="#087f8c"></circle>
+                        <circle cx="570" cy="110" r="5" fill="#087f8c"></circle>
+                        <circle cx="680" cy="120" r="5" fill="#087f8c"></circle>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+            <div class="trend-x-axis">
+                <span>08:00</span>
+                <span>10:00</span>
+                <span>12:00</span>
+                <span>14:00</span>
+                <span>16:00</span>
+                <span>18:00</span>
+                <span>20:00</span>
+            </div>
+
+        </section>
+
+
+        <section class="panel quality-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Water Quality Score</h2>
+                    <p>Overall current condition</p>
+                </div>
+
+            </div>
+
+            <div class="score-circle" id="scoreCircle">
+                <div>
+                    <strong id="qualityScore">--</strong>
+                    <span>/100</span>
+                </div>
+            </div>
+
+            <div class="quality-status" id="qualityStatus">
+                ● CHECKING...
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Quality Parameters</h2>
+                    <p>Current sensor readings</p>
+                </div>
+
+                <span class="status-running">
+                    ● Sensors Active
+                </span>
+
+            </div>
+
+            <div class="equipment-list">
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">🧪</div>
+                        <div>
+                            <strong>pH Level</strong>
+                            <small>Safe range: 6.5 - 8.5</small>
+                        </div>
+                    </div>
+                    <span class="status-running" id="scorePh">--</span>
+                </div>
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">💧</div>
+                        <div>
+                            <strong>Turbidity</strong>
+                            <small>Limit: &lt; 4 NTU</small>
+                        </div>
+                    </div>
+                    <span class="status-running" id="scoreTurbidity">--</span>
+                </div>
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">⚙️</div>
+                        <div>
+                            <strong>Pressure</strong>
+                            <small>Limit: &lt; 4 bar</small>
+                        </div>
+                    </div>
+                    <span class="status-running" id="scorePressure">--</span>
+                </div>
+
+                <div class="equipment-row">
+                    <div class="equipment-name">
+                        <div class="equipment-icon">🌡️</div>
+                        <div>
+                            <strong>Temperature</strong>
+                            <small>Limit: &lt; 35 °C</small>
+                        </div>
+                    </div>
+                    <span class="status-running" id="scoreTemperature">--</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="alert-item success">
+
+                <div class="alert-icon">✓</div>
+
+                <div>
+                    <strong>All systems operating normally</strong>
+                    <small>
+                        Water quality, equipment and alerts are being monitored continuously.
+                    </small>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="dashboard.js"></script>
+
+    <script>
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "index.html";
+        }
+
+        function toggleNotifications(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById("notificationDropdown");
+            if (dropdown) dropdown.classList.toggle("open");
+        }
+
+        document.addEventListener("click", function(event) {
+            const dropdown = document.getElementById("notificationDropdown");
+            const wrapper  = document.querySelector(".notification-wrapper");
+            if (dropdown && wrapper && !wrapper.contains(event.target)) {
+                dropdown.classList.remove("open");
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                const dropdown = document.getElementById("notificationDropdown");
+                if (dropdown) dropdown.classList.remove("open");
+            }
+        });
+
+    </script>
+
+</body>
+</html>

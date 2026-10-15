@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports - WaterGuard</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reports.css">
+</head>
+
+<body>
+
+    
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">💧</div>
+
+            <div>
+                <h2>WaterGuard</h2>
+                <span>Smart Monitoring</span>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <p class="menu-title">MAIN MENU</p>
+
+            <a href="dashboard.html" class="menu-item">
+                <span>📊</span>
+                Dashboard
+            </a>
+
+            <a href="monitoring.html" class="menu-item">
+                <span>💧</span>
+                Water Monitoring
+            </a>
+
+            <a href="equipment.html" class="menu-item">
+                <span>⚙️</span>
+                Equipment
+            </a>
+
+            <a href="alerts.html" class="menu-item">
+
+                <span>🚨</span>
+                Smart Alerts
+                <span class="badge">3</span>
+
+            </a>
+
+
+            <p class="menu-title">ANALYTICS</p>
+
+            <a href="analytics.html" class="menu-item">
+                <span>📈</span>
+                Analytics
+            </a>
+
+            <a href="history.html" class="menu-item">
+                <span>📅</span>
+                History
+            </a>
+
+            <a href="reports.html" class="menu-item active">
+                <span>📄</span>
+                Reports
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="system-status">
+
+                <span class="online-dot"></span>
+
+                <div>
+                    <strong>System Online</strong>
+                    <small>All services active</small>
+                </div>
+
+            </div>
+
+
+            <button class="logout" onclick="logout()">
+                ↪ Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    
+
+    <main class="main-content">
+
+
+        
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="page-label">
+                    REPORTS
+                </p>
+
+                <h1>
+                    Water Treatment Reports
+                </h1>
+
+                <p class="welcome-text">
+                    Generate and review water quality and plant performance reports.
+                </p>
+
+            </div>
+
+
+            <div class="profile">
+
+
+                
+
+                <div class="notification-wrapper">
+
+                    <div
+                        class="notification"
+                        onclick="toggleNotifications(event)"
+                    >
+
+                        🔔
+
+                        <span class="notification-dot"></span>
+
+                    </div>
+
+
+                    <div
+                        class="notification-dropdown"
+                        id="notificationDropdown"
+                    >
+
+                        <div class="notification-header">
+
+                            <strong>Notifications</strong>
+
+                            <span class="notification-count">
+                                3 new
+                            </span>
+
+                        </div>
+
+
+                        <div class="notification-list">
+
+
+                            <div class="notification-item">
+
+                                <div class="notif-icon warning">
+                                    ⚠️
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Pressure variation detected
+                                    </strong>
+
+                                    <small>
+                                        Current pressure: 4.2 bar · 10 min ago
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="notification-item">
+
+                                <div class="notif-icon warning">
+                                    ⚠️
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        High turbidity detected
+                                    </strong>
+
+                                    <small>
+                                        Current turbidity: 4.8 NTU · 25 min ago
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="notification-item">
+
+                                <div class="notif-icon warning">
+                                    ⚠️
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        pH approaching upper threshold
+                                    </strong>
+
+                                    <small>
+                                        Current pH: 8.2 · 35 min ago
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <a
+                            href="alerts.html"
+                            class="notification-footer"
+                        >
+                            View all alerts →
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                
+
+                <div class="profile-info">
+
+                    <div
+                        class="avatar"
+                        id="userAvatar"
+                    >
+                        A
+                    </div>
+
+                    <div>
+
+                        <strong id="userName">
+                            Admin
+                        </strong>
+
+                        <small>
+                            Plant Operator
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        
+
+        <section class="overview-cards">
+
+
+            
+
+            <div class="metric-card">
+
+                <div class="metric-icon ph-icon">
+                    🧪
+                </div>
+
+                <div class="metric-content">
+
+                    <p>AVERAGE pH</p>
+
+                    <h2 id="avgPh">
+                        7.20
+                    </h2>
+
+                    <span class="good">
+                        ● Normal
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            
+
+            <div class="metric-card">
+
+                <div class="metric-icon turbidity-icon">
+                    💧
+                </div>
+
+                <div class="metric-content">
+
+                    <p>AVG TURBIDITY</p>
+
+                    <h2 id="avgTurbidity">
+                        2.40
+                        <small>NTU</small>
+                    </h2>
+
+                    <span class="good">
+                        ● Normal
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            
+
+            <div class="metric-card">
+
+                <div class="metric-icon flow-icon">
+                    💦
+                </div>
+
+                <div class="metric-content">
+
+                    <p>AVG FLOW RATE</p>
+
+                    <h2 id="avgFlow">
+                        82
+                        <small>L/min</small>
+                    </h2>
+
+                    <span class="good">
+                        ● Stable
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            
+
+            <div class="metric-card">
+
+                <div class="metric-icon pressure-icon">
+                    ⚡
+                </div>
+
+                <div class="metric-content">
+
+                    <p>AVG PRESSURE</p>
+
+                    <h2 id="avgPressure">
+                        3.40
+                        <small>bar</small>
+                    </h2>
+
+                    <span class="good">
+                        ● Normal
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Generate Report
+                    </h2>
+
+                    <p>
+                        Select the required report period and type.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-grid">
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Report Period
+                    </label>
+
+                    <select id="reportPeriod">
+
+                        <option>
+                            Last 24 Hours
+                        </option>
+
+                        <option>
+                            Last 7 Days
+                        </option>
+
+                        <option>
+                            Last 30 Days
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Report Type
+                    </label>
+
+                    <select id="reportType">
+
+                        <option>
+                            Water Quality Report
+                        </option>
+
+                        <option>
+                            Equipment Performance
+                        </option>
+
+                        <option>
+                            Alert Summary
+                        </option>
+
+                        <option>
+                            Complete Plant Report
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    class="generate-btn"
+                    onclick="generateReport()"
+                >
+                    Generate Report
+                </button>
+
+            </div>
+
+        </section>
+
+
+        
+
+        <section class="panel report-preview">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Report Preview
+                    </h2>
+
+                    <p>
+                        Current water treatment monitoring summary.
+                    </p>
+
+                </div>
+
+
+                <span class="report-status">
+                    ● Report Ready
+                </span>
+
+            </div>
+
+
+            
+
+            <div class="report-header">
+
+                <div>
+
+                    <h3>
+                        WaterGuard
+                    </h3>
+
+                    <p>
+                        Water Treatment Monitoring Report
+                    </p>
+
+                </div>
+
+
+                <div class="report-date">
+
+                    <span>
+                        Report Period
+                    </span>
+
+                    <strong id="periodText">
+                        Last 24 Hours
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            
+
+            <div class="report-table">
+
+
+                <div class="table-header">
+
+                    <span>
+                        Parameter
+                    </span>
+
+                    <span>
+                        Average
+                    </span>
+
+                    <span>
+                        Unit
+                    </span>
+
+                    <span>
+                        Status
+                    </span>
+
+                </div>
+
+
+                
+
+                <div class="table-row">
+
+                    <span>
+                        pH Level
+                    </span>
+
+                    <strong id="reportPh">
+                        7.20
+                    </strong>
+
+                    <span>
+                        pH
+                    </span>
+
+                    <span class="table-good">
+                        ● Normal
+                    </span>
+
+                </div>
+
+
+                
+
+                <div class="table-row">
+
+                    <span>
+                        Turbidity
+                    </span>
+
+                    <strong id="reportTurbidity">
+                        2.40
+                    </strong>
+
+                    <span>
+                        NTU
+                    </span>
+
+                    <span class="table-good">
+                        ● Normal
+                    </span>
+
+                </div>
+
+
+                
+
+                <div class="table-row">
+
+                    <span>
+                        Flow Rate
+                    </span>
+
+                    <strong id="reportFlow">
+                        82
+                    </strong>
+
+                    <span>
+                        L/min
+                    </span>
+
+                    <span class="table-good">
+                        ● Stable
+                    </span>
+
+                </div>
+
+
+                
+
+                <div class="table-row">
+
+                    <span>
+                        Pressure
+                    </span>
+
+                    <strong id="reportPressure">
+                        3.40
+                    </strong>
+
+                    <span>
+                        bar
+                    </span>
+
+                    <span class="table-good">
+                        ● Normal
+                    </span>
+
+                </div>
+
+
+                
+
+                <div class="table-row">
+
+                    <span>
+                        Temperature
+                    </span>
+
+                    <strong id="reportTemperature">
+                        26.5
+                    </strong>
+
+                    <span>
+                        °C
+                    </span>
+
+                    <span class="table-good">
+                        ● Normal
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            
+
+            <div class="report-footer">
+
+                <div>
+
+                    <strong>
+                        Overall System Status
+                    </strong>
+
+                    <span>
+                        ● All monitored parameters are within normal range
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="download-btn"
+                    onclick="downloadReport()"
+                >
+                    ↓ Download Report
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+        
+
+        <section class="panel">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Recent Reports
+                    </h2>
+
+                    <p>
+                        Previously generated monitoring reports.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            
+
+            <div class="recent-report">
+
+                <div class="file-icon">
+                    📄
+                </div>
+
+                <div class="file-info">
+
+                    <strong>
+                        Water Quality Report
+                    </strong>
+
+                    <small>
+                        Last 24 Hours • Generated today
+                    </small>
+
+                </div>
+
+                <span class="completed">
+                    Completed
+                </span>
+
+                <button
+                    class="view-btn"
+                    onclick="viewReport('Water Quality Report')"
+                >
+                    View
+                </button>
+
+            </div>
+
+
+            
+
+            <div class="recent-report">
+
+                <div class="file-icon">
+                    📄
+                </div>
+
+                <div class="file-info">
+
+                    <strong>
+                        Equipment Performance Report
+                    </strong>
+
+                    <small>
+                        Last 7 Days • Generated recently
+                    </small>
+
+                </div>
+
+                <span class="completed">
+                    Completed
+                </span>
+
+                <button
+                    class="view-btn"
+                    onclick="viewReport('Equipment Performance Report')"
+                >
+                    View
+                </button>
+
+            </div>
+
+
+            
+
+            <div class="recent-report">
+
+                <div class="file-icon">
+                    📄
+                </div>
+
+                <div class="file-info">
+
+                    <strong>
+                        Alert Summary Report
+                    </strong>
+
+                    <small>
+                        Last 30 Days • Generated recently
+                    </small>
+
+                </div>
+
+                <span class="completed">
+                    Completed
+                </span>
+
+                <button
+                    class="view-btn"
+                    onclick="viewReport('Alert Summary Report')"
+                >
+                    View
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    
+
+    <script src="reports.js"></script>
+
+</body>
+
+</html>

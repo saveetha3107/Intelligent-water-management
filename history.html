@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>History - WaterGuard</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="history.css">
+</head>
+
+<body>
+
+    
+
+    <div class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">💧</div>
+            <div>
+                <h2>WaterGuard</h2>
+                <span>Smart Monitoring</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <p class="menu-title">MAIN MENU</p>
+
+            <a href="dashboard.html" class="menu-item"><span>📊</span>Dashboard</a>
+            <a href="monitoring.html" class="menu-item"><span>💧</span>Water Monitoring</a>
+            <a href="equipment.html" class="menu-item"><span>⚙️</span>Equipment</a>
+            <a href="alerts.html" class="menu-item">
+                <span>🚨</span>Smart Alerts<span class="badge">3</span>
+            </a>
+
+            <p class="menu-title">ANALYTICS</p>
+
+            <a href="analytics.html" class="menu-item"><span>📈</span>Analytics</a>
+            <a href="history.html" class="menu-item active"><span>📅</span>History</a>
+            <a href="reports.html" class="menu-item"><span>📄</span>Reports</a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-status">
+                <span class="online-dot"></span>
+                <div>
+                    <strong>System Online</strong>
+                    <small>All services active</small>
+                </div>
+            </div>
+            <button class="logout" onclick="logout()">↪ Logout</button>
+        </div>
+
+    </div>
+
+
+    
+
+    <main class="main-content">
+
+
+        
+
+        <header class="topbar">
+
+            <div>
+                <p class="page-label">HISTORY</p>
+                <h1>Monitoring History</h1>
+                <p class="welcome-text">
+                    View historical water quality and plant monitoring records.
+                </p>
+            </div>
+
+            <div class="profile">
+
+                <div class="notification-wrapper">
+
+                    <div class="notification" onclick="toggleNotifications(event)">
+                        🔔
+                        <span class="notification-dot"></span>
+                    </div>
+
+                    <div class="notification-dropdown" id="notificationDropdown">
+
+                        <div class="notification-header">
+                            <strong>Notifications</strong>
+                            <span class="notification-count">3 new</span>
+                        </div>
+
+                        <div class="notification-list">
+
+                            <div class="notification-item">
+                                <div class="notif-icon warning">⚠️</div>
+                                <div>
+                                    <strong>Pressure variation detected</strong>
+                                    <small>Current pressure: 4.2 bar · 10 min ago</small>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <div class="notif-icon warning">⚠️</div>
+                                <div>
+                                    <strong>High turbidity detected</strong>
+                                    <small>Current turbidity: 4.8 NTU · 25 min ago</small>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <div class="notif-icon warning">⚠️</div>
+                                <div>
+                                    <strong>pH approaching upper threshold</strong>
+                                    <small>Current pH: 8.2 · 35 min ago</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <a href="alerts.html" class="notification-footer">
+                            View all alerts →
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="profile-info">
+                    <div class="avatar" id="userAvatar">A</div>
+                    <div>
+                        <strong id="userName">Admin</strong>
+                        <small>Plant Operator</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        
+
+        <section class="filter-card">
+
+            <div class="filter-title">
+
+                <h2>
+                    Historical Records
+                </h2>
+
+                <p>
+                    Review previously recorded sensor readings.
+                </p>
+
+            </div>
+
+
+            <div class="filters">
+
+                <div class="filter-group">
+
+                    <label>
+                        Time Period
+                    </label>
+
+                    <select id="periodFilter">
+
+                        <option>
+                            Last 24 Hours
+                        </option>
+
+                        <option>
+                            Last 7 Days
+                        </option>
+
+                        <option>
+                            Last 30 Days
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Parameter
+                    </label>
+
+                    <select id="parameterFilter">
+
+                        <option>
+                            All Parameters
+                        </option>
+
+                        <option>
+                            pH
+                        </option>
+
+                        <option>
+                            Turbidity
+                        </option>
+
+                        <option>
+                            Flow Rate
+                        </option>
+
+                        <option>
+                            Pressure
+                        </option>
+
+                        <option>
+                            Temperature
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button class="filter-btn" onclick="applyFilter()">
+                    Apply Filter
+                </button>
+
+            </div>
+
+        </section>
+
+
+        
+
+        <section class="history-summary">
+
+            <div class="summary-card">
+
+                <div class="summary-icon ph">
+                    🧪
+                </div>
+
+                <div>
+
+                    <span>
+                        Average pH
+                    </span>
+
+                    <strong id="avgPh">
+                        7.20
+                    </strong>
+
+                    <small>
+                        ● Normal
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon turbidity">
+                    💧
+                </div>
+
+                <div>
+
+                    <span>
+                        Average Turbidity
+                    </span>
+
+                    <strong id="avgTurbidity">
+                        2.40
+                    </strong>
+
+                    <small>
+                        ● Normal
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon flow">
+                    🌊
+                </div>
+
+                <div>
+
+                    <span>
+                        Average Flow
+                    </span>
+
+                    <strong id="avgFlow">
+                        82 L/min
+                    </strong>
+
+                    <small>
+                        ● Stable
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon pressure">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <span>
+                        Average Pressure
+                    </span>
+
+                    <strong id="avgPressure">
+                        3.2 bar
+                    </strong>
+
+                    <small>
+                        ● Normal
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        
+
+        <section class="history-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Sensor Reading History
+                    </h2>
+
+                    <p>
+                        Historical readings received from monitoring sensors.
+                    </p>
+
+                </div>
+
+                <span class="record-count">
+                    7 Records
+                </span>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Date & Time
+                            </th>
+
+                            <th>
+                                pH
+                            </th>
+
+                            <th>
+                                Turbidity
+                            </th>
+
+                            <th>
+                                Flow Rate
+                            </th>
+
+                            <th>
+                                Pressure
+                            </th>
+
+                            <th>
+                                Temperature
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="historyTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        
+
+        <section class="history-info">
+
+            <div>
+                <strong>
+                    ● Data Recording Active
+                </strong>
+
+                <span>
+                    Sensor readings are being continuously recorded.
+                </span>
+            </div>
+
+            <div>
+                <strong>
+                    Last Updated
+                </strong>
+
+                <span>
+                    Just now
+                </span>
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script>
+
+        const userName =
+            sessionStorage.getItem("userName");
+
+        if (userName) {
+
+            document.getElementById("userName").textContent =
+                userName;
+
+            document.getElementById("userAvatar").textContent =
+                userName.charAt(0).toUpperCase();
+
+        }
+
+
+        function applyFilter() {
+
+            alert("History filter applied.");
+
+        }
+
+
+        async function logout() {
+
+            const activityId =
+                sessionStorage.getItem("activityId");
+
+            if (activityId) {
+
+                try {
+
+                    await fetch(
+                        "http://localhost:5000/api/logout",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                activityId: activityId
+                            })
+                        }
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Logout error:",
+                        error
+                    );
+
+                }
+
+            }
+
+            sessionStorage.clear();
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        
+
+        function toggleNotifications(event) {
+
+            event.stopPropagation();
+
+            const dropdown =
+                document.getElementById("notificationDropdown");
+
+            if (dropdown) dropdown.classList.toggle("open");
+
+        }
+
+        document.addEventListener("click", function(event) {
+
+            const dropdown =
+                document.getElementById("notificationDropdown");
+
+            const wrapper =
+                document.querySelector(".notification-wrapper");
+
+            if (dropdown && wrapper && !wrapper.contains(event.target)) {
+
+                dropdown.classList.remove("open");
+
+            }
+
+        });
+
+        document.addEventListener("keydown", function(event) {
+
+            if (event.key === "Escape") {
+
+                const dropdown =
+                    document.getElementById("notificationDropdown");
+
+                if (dropdown) dropdown.classList.remove("open");
+
+            }
+
+        });
+
+    </script>
+    <script src="history.js"></script>
+
+</body>
+
+</html>
