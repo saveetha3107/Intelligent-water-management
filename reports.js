@@ -78,7 +78,7 @@ async function loadReportSummary() {
     try {
 
         const response =
-            await fetch("http://localhost:5000/api/history");
+            await fetch("/api/history");
 
         if (!response.ok) {
             throw new Error("History API failed");
@@ -717,7 +717,7 @@ async function logout() {
         try {
 
             await fetch(
-                "http://localhost:5000/api/logout",
+                "/api/logout",
                 {
                     method: "POST",
 

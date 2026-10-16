@@ -2,7 +2,7 @@ let qualityChart;
 
 async function loadAnalytics() {
     try {
-        const response = await fetch("http://localhost:5000/api/history");
+        const response = await fetch("/api/history");
 
         if (!response.ok) {
             throw new Error("Failed to fetch history data");
@@ -194,7 +194,7 @@ async function updateChart() {
     try {
 
         const response =
-            await fetch("http://localhost:5000/api/history");
+            await fetch("/api/history");
 
         if (!response.ok) {
             throw new Error("Failed to fetch history data");
@@ -261,7 +261,7 @@ function logout() {
 
     if (activityId) {
 
-        fetch("http://localhost:5000/api/logout", {
+        fetch("/api/logout", {
             method: "POST",
 
             headers: {

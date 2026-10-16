@@ -6,7 +6,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const message = document.getElementById("message");
 
     try {
-        const response = await fetch("http://localhost:5000/api/login", {
+        const response = await fetch("/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -45,7 +45,7 @@ async function logout() {
 
     if (activityId) {
         try {
-            await fetch("http://localhost:5000/api/logout", {
+            await fetch("/api/logout", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

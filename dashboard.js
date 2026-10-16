@@ -27,7 +27,7 @@ async function loadWaterQuality() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/water-quality"
+            "/api/water-quality"
         );
 
         if (!response.ok) {
@@ -247,7 +247,7 @@ async function logout() {
 
         try {
 
-            await fetch("http://localhost:5000/api/logout", {
+            await fetch("/api/logout", {
 
                 method: "POST",
 

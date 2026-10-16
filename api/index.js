@@ -1,8 +1,14 @@
 
+require("dotenv").config();
+
 const express = require("express");
-const mysql = require("mysql2");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+
+const User = require("./models/User");
+const WaterQuality = require("./models/WaterQuality");
+const LoginActivity = require("./models/LoginActivity");
 
 const app = express();
 
@@ -24,51 +30,33 @@ app.get("/", (req, res) => {
 
 
 // =====================================
-// MYSQL DATABASE CONNECTION
+// MONGODB ATLAS CONNECTION
 // =====================================
 
-const db = mysql.createConnection({
-    host: process.env.DB_HOST || "localhost",
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "saveetha@123",
-    database: process.env.DB_NAME || "waterguard",
-    port: process.env.DB_PORT || 3306
-});
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/waterguard";
 
-db.connect((err) => {
-    if (err) {
-        console.error("MySQL connection failed:", err.message);
-        return;
-    }
-
-    console.log("MySQL connected successfully!");
-});
+mongoose
+    .connect(MONGODB_URI)
+    .then(() => console.log("MongoDB connected successfully!"))
+    .catch((err) => console.error("MongoDB connection failed:", err.message));
 
 
 // =====================================
 // WATER QUALITY API
 // =====================================
 
-app.get("/api/water-quality", (req, res) => {
+app.get("/api/water-quality", async (req, res) => {
 
-    const sql = `
-        SELECT *
-        FROM water_quality
-        ORDER BY recorded_at DESC
-    `;
-
-    db.query(sql, (err, results) => {
-
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Failed to fetch water quality data",
-                error: err.message
-            });
-        }
-
+    try {
+        const results = await WaterQuality.find().sort({ recorded_at: -1 });
         res.json(results);
-    });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch water quality data",
+            error: err.message
+        });
+    }
 });
 
 
@@ -76,36 +64,22 @@ app.get("/api/water-quality", (req, res) => {
 // HISTORY API
 // =====================================
 
-app.get("/api/history", (req, res) => {
+app.get("/api/history", async (req, res) => {
 
-    const sql = `
-        SELECT
-            id,
-            ph,
-            turbidity,
-            flow_rate,
-            pressure,
-            temperature,
-            recorded_at
-        FROM water_quality
-        ORDER BY recorded_at DESC
-    `;
-
-    db.query(sql, (err, results) => {
-
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Failed to fetch history",
-                error: err.message
-            });
-        }
+    try {
+        const results = await WaterQuality.find().sort({ recorded_at: -1 });
 
         res.json({
             success: true,
             data: results
         });
-    });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch history",
+            error: err.message
+        });
+    }
 });
 
 
@@ -113,33 +87,41 @@ app.get("/api/history", (req, res) => {
 // REPORT SUMMARY API
 // =====================================
 
-app.get("/api/report-summary", (req, res) => {
+app.get("/api/report-summary", async (req, res) => {
 
-    const sql = `
-        SELECT
-            ROUND(AVG(ph), 2) AS average_ph,
-            ROUND(AVG(turbidity), 2) AS average_turbidity,
-            ROUND(AVG(flow_rate), 2) AS average_flow_rate,
-            ROUND(AVG(pressure), 2) AS average_pressure,
-            ROUND(AVG(temperature), 2) AS average_temperature
-        FROM water_quality
-    `;
+    try {
+        const [summary] = await WaterQuality.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    average_ph: { $avg: "$ph" },
+                    average_turbidity: { $avg: "$turbidity" },
+                    average_flow_rate: { $avg: "$flow_rate" },
+                    average_pressure: { $avg: "$pressure" },
+                    average_temperature: { $avg: "$temperature" }
+                }
+            }
+        ]);
 
-    db.query(sql, (err, results) => {
-
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Failed to generate report summary",
-                error: err.message
-            });
-        }
+        const round2 = (n) => (typeof n === "number" ? Math.round(n * 100) / 100 : n);
 
         res.json({
             success: true,
-            data: results[0]
+            data: summary ? {
+                average_ph: round2(summary.average_ph),
+                average_turbidity: round2(summary.average_turbidity),
+                average_flow_rate: round2(summary.average_flow_rate),
+                average_pressure: round2(summary.average_pressure),
+                average_temperature: round2(summary.average_temperature)
+            } : {}
         });
-    });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to generate report summary",
+            error: err.message
+        });
+    }
 });
 
 
@@ -147,36 +129,22 @@ app.get("/api/report-summary", (req, res) => {
 // REPORT DATA API
 // =====================================
 
-app.get("/api/report-data", (req, res) => {
+app.get("/api/report-data", async (req, res) => {
 
-    const sql = `
-        SELECT
-            id,
-            ph,
-            turbidity,
-            flow_rate,
-            pressure,
-            temperature,
-            recorded_at
-        FROM water_quality
-        ORDER BY recorded_at DESC
-    `;
-
-    db.query(sql, (err, results) => {
-
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Failed to fetch report data",
-                error: err.message
-            });
-        }
+    try {
+        const results = await WaterQuality.find().sort({ recorded_at: -1 });
 
         res.json({
             success: true,
             data: results
         });
-    });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch report data",
+            error: err.message
+        });
+    }
 });
 
 
@@ -184,62 +152,35 @@ app.get("/api/report-data", (req, res) => {
 // LOGIN API
 // =====================================
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", async (req, res) => {
 
     const { email, password } = req.body;
 
-    const sql = `
-        SELECT *
-        FROM users
-        WHERE email = ?
-        AND password = ?
-    `;
+    try {
+        const user = await User.findOne({ email, password });
 
-    db.query(sql, [email, password], (err, results) => {
-
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Database error"
-            });
-        }
-
-        if (results.length === 0) {
+        if (!user) {
             return res.status(401).json({
                 success: false,
                 message: "Invalid email or password"
             });
         }
 
-        const user = results[0];
+        const activity = await LoginActivity.create({ user_id: user._id });
 
-        const activitySql = `
-            INSERT INTO login_activity (user_id)
-            VALUES (?)
-        `;
-
-        db.query(
-            activitySql,
-            [user.id],
-            (activityErr, activityResult) => {
-
-                if (activityErr) {
-                    return res.status(500).json({
-                        success: false,
-                        message: "Could not record login"
-                    });
-                }
-
-                res.json({
-                    success: true,
-                    userId: user.id,
-                    activityId: activityResult.insertId,
-                    name: user.name,
-                    role: user.role
-                });
-            }
-        );
-    });
+        res.json({
+            success: true,
+            userId: user._id,
+            activityId: activity._id,
+            name: user.name,
+            role: user.role
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Database error"
+        });
+    }
 });
 
 
@@ -247,32 +188,26 @@ app.post("/api/login", (req, res) => {
 // LOGOUT API
 // =====================================
 
-app.post("/api/logout", (req, res) => {
+app.post("/api/logout", async (req, res) => {
 
     const { activityId } = req.body;
 
-    const sql = `
-        UPDATE login_activity
-        SET
-            logout_time = CURRENT_TIMESTAMP,
-            status = 'Logged Out'
-        WHERE id = ?
-    `;
-
-    db.query(sql, [activityId], (err) => {
-
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Could not record logout"
-            });
-        }
+    try {
+        await LoginActivity.findByIdAndUpdate(activityId, {
+            logout_time: new Date(),
+            status: "Logged Out"
+        });
 
         res.json({
             success: true,
             message: "Logout recorded"
         });
-    });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Could not record logout"
+        });
+    }
 });
 
 

@@ -1,6 +1,6 @@
 async function loadHistory() {
     try {
-        const response = await fetch("http://localhost:5000/api/history");
+        const response = await fetch("/api/history");
 
         if (!response.ok) {
             throw new Error("Failed to fetch history");
@@ -191,7 +191,7 @@ async function logout() {
         try {
 
             await fetch(
-                "http://localhost:5000/api/logout",
+                "/api/logout",
                 {
                     method: "POST",
 
